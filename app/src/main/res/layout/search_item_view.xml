@@ -13,12 +13,11 @@
 
         <ImageView
                 android:id="@+id/imgur_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"
                 android:padding="2dp"
-
                 app:imageUrl="@{property.link}"
                 tools:src="@tools:sample/backgrounds/scenic"
                 app:layout_constraintTop_toTopOf="parent"

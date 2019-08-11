@@ -15,13 +15,19 @@
             android:layout_height="match_parent"
             tools:context=".MainActivity">
 
-        <SearchView android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/searchView"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
-        </SearchView>
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/myToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:elevation="4dp"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/imageRecyclerView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
 
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
@@ -29,7 +35,7 @@
                 android:id="@+id/imageRecyclerView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:listData="@{viewModel.properties}"
-                app:layout_constraintTop_toBottomOf="@id/searchView"
+                app:layout_constraintTop_toBottomOf="@+id/myToolbar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"

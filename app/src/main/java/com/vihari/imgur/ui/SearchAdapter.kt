@@ -12,10 +12,10 @@ import com.vihari.imgur.domain.ImgurProperty
  * Class implements a [RecyclerView] [ListAdapter] which uses Data Binding to present [List]
  * data, including computing diffs between lists.
  */
-class SearchAdapter : ListAdapter<ImgurProperty, SearchAdapter.ImgurPropertyViewHolder>(DiffCallback) {
+class SearchAdapter(val onClickListener: OnClickListener) : ListAdapter<ImgurProperty, SearchAdapter.ImgurPropertyViewHolder>(DiffCallback) {
 
 
-    class ImgurPropertyViewHolder(private var binding: SearchItemViewBinding) :
+    class ImgurPropertyViewHolder(var binding: SearchItemViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(imgurProperty: ImgurProperty) {
             binding.property = imgurProperty
@@ -33,16 +33,22 @@ class SearchAdapter : ListAdapter<ImgurProperty, SearchAdapter.ImgurPropertyView
         }
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ImgurPropertyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int ): ImgurPropertyViewHolder {
         return ImgurPropertyViewHolder(SearchItemViewBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
 
     override fun onBindViewHolder(holder: ImgurPropertyViewHolder, position: Int) {
-        val marsProperty = getItem(position)
-        holder.bind(marsProperty)
+        val imgurProperty:ImgurProperty = getItem(position)
+        holder.bind(imgurProperty)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(imgurProperty)
+        }
+
     }
+
+    class OnClickListener(val clickListener:(imgurProperty: ImgurProperty) -> Unit) {
+        fun onClick(imgurProperty: ImgurProperty) = clickListener(imgurProperty)
+    }
+
 }

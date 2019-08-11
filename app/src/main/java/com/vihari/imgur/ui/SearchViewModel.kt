@@ -1,6 +1,6 @@
 package com.vihari.imgur.ui
 
-import android.util.Log
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +12,6 @@ import kotlinx.coroutines.*
  *ViewModel attached to SearchActivity
  */
 class SearchViewModel : ViewModel() {
-
 
     private val _properties = MutableLiveData<List<ImgurProperty>>()
     val properties: LiveData<List<ImgurProperty>>
@@ -26,7 +25,9 @@ class SearchViewModel : ViewModel() {
 
 
     init {
-        getImgurProperties("vanilla")
+
+
+        //getImgurProperties("vanilla")
     }
 
     fun getImgurProperties(givenValue: String) {
@@ -43,7 +44,7 @@ class SearchViewModel : ViewModel() {
     suspend fun getImgurPropertiesFromService(givenValue: String) {
         withContext(Dispatchers.IO) {
             val listResult = ImgurApi.retrofitService.getProperties(givenValue).await()
-
+            domainImgurList.clear()
             try {
                 for (i in listResult.data.indices) {
                     when {
@@ -58,8 +59,11 @@ class SearchViewModel : ViewModel() {
         }
     }
 
+
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
     }
+
+
 }

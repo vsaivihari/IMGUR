@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="viewModel"
+                  type="com.vihari.imgur.ui.DetailImageViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+                android:id="@+id/myChildToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:elevation="4dp"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                    android:id="@+id/childToolbarTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/toolbarText"
+                    app:text="@{viewModel.selectedProperty.title}"
+                    android:textColor="@android:color/black"
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:layout_gravity="center"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <ImageView android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:id="@+id/detailImage"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintBottom_toTopOf="parent"
+                   app:layout_constraintTop_toBottomOf="@id/myChildToolbar"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:imageUrl="@{viewModel.selectedProperty.link}"
+                   android:contentDescription="@string/imagenotfound"/>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

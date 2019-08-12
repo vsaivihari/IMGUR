@@ -15,13 +15,20 @@ import com.vihari.imgur.domain.ImgurProperty
 class SearchAdapter(val onClickListener: OnClickListener) : ListAdapter<ImgurProperty, SearchAdapter.ImgurPropertyViewHolder>(DiffCallback) {
 
 
-    class ImgurPropertyViewHolder(var binding: SearchItemViewBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(imgurProperty: ImgurProperty) {
-            binding.property = imgurProperty
-            binding.executePendingBindings()
-        }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int ): ImgurPropertyViewHolder {
+        return ImgurPropertyViewHolder(SearchItemViewBinding.inflate(LayoutInflater.from(parent.context)))
     }
+
+    override fun onBindViewHolder(holder: ImgurPropertyViewHolder, position: Int) {
+        val imgurProperty:ImgurProperty = getItem(position)
+        holder.bind(imgurProperty)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(imgurProperty)
+        }
+
+    }
+
 
     companion object DiffCallback : DiffUtil.ItemCallback<ImgurProperty>() {
         override fun areItemsTheSame(oldItem: ImgurProperty, newItem: ImgurProperty): Boolean {
@@ -33,22 +40,17 @@ class SearchAdapter(val onClickListener: OnClickListener) : ListAdapter<ImgurPro
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int ): ImgurPropertyViewHolder {
-        return ImgurPropertyViewHolder(SearchItemViewBinding.inflate(LayoutInflater.from(parent.context)))
-    }
 
-
-    override fun onBindViewHolder(holder: ImgurPropertyViewHolder, position: Int) {
-        val imgurProperty:ImgurProperty = getItem(position)
-        holder.bind(imgurProperty)
-        holder.itemView.setOnClickListener {
-            onClickListener.onClick(imgurProperty)
-        }
-
-    }
-
+    //ClickListener for RecyclerView
     class OnClickListener(val clickListener:(imgurProperty: ImgurProperty) -> Unit) {
         fun onClick(imgurProperty: ImgurProperty) = clickListener(imgurProperty)
     }
 
+    class ImgurPropertyViewHolder(var binding: SearchItemViewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(imgurProperty: ImgurProperty) {
+            binding.property = imgurProperty
+            binding.executePendingBindings()
+        }
+    }
 }

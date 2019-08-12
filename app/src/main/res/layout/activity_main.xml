@@ -24,10 +24,22 @@
                 android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/imageRecyclerView"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/hintText"
+                  android:text="@{viewModel.hintText}"
+                  android:textSize="@dimen/searchText"
+                  android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                  android:visibility="@{viewModel.hintTextVisibility}"
+                  app:layout_constraintHorizontal_bias="0.5"
+                  app:layout_constraintVertical_bias="0.5"
+                  app:layout_constraintStart_toStartOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  app:layout_constraintTop_toTopOf="parent"/>
 
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
@@ -42,6 +54,8 @@
                 app:spanCount="3">
 
         </androidx.recyclerview.widget.RecyclerView>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

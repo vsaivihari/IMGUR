@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
@@ -38,25 +39,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.viewModel = viewModel
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
         setSupportActionBar(binding.myToolbar)
         binding.imageRecyclerView.adapter = SearchAdapter(SearchAdapter.OnClickListener{goToDetailActivity(it)})
 
     }
 
+    // Will send Entered Search Item to viewmodel
     override fun onResume() {
         super.onResume()
         if (Intent.ACTION_SEARCH == intent.action) {
             intent.getStringExtra(SearchManager.QUERY)?.also { query ->
                 viewModel.getImgurProperties(query)
+                viewModel.hintTextVisibility.postValue(View.GONE)
             }
         }
+
     }
 
-
+    // Create search menu item in App Bar
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.options_menu, menu)
-        // Associate searchable configuration with the SearchView
+
         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
         (menu.findItem(R.id.search).actionView as SearchView).apply {
             setSearchableInfo(searchManager.getSearchableInfo(componentName))
@@ -64,16 +68,11 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-
+        // Launch Detail Activity
         private fun goToDetailActivity(ingur: ImgurProperty) {
         val intent = Intent(this, DetailImageActivity::class.java)
         intent.putExtra(EXTRA_MESSAGE, ingur)
         startActivity(intent)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("sai", "Destroyed")
     }
 
 }

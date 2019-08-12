@@ -9,7 +9,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.vihari.imgur.domain.ImgurProperty
 import com.vihari.imgur.ui.SearchAdapter
+import com.vihari.imgur.ui.SearchViewModel
 
+
+// Binding Search Adapter to Recycler View
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<ImgurProperty>?) {
     val adapter = recyclerView.adapter as SearchAdapter

@@ -3,4 +3,5 @@
     <string name="search_hint">Search Images</string>
     <string name="app_label">IMGUR</string>
     <string name="search_title">Search</string>
+    <string name="imagenotfound">ImageNotFound</string>
 </resources>
